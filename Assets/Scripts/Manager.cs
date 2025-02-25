@@ -4,45 +4,74 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public float G = 1.0f;
     public PosVelCalc PVC;
-    public List<Vector2> initialPositions;
-    public List<Vector3> initialVelocities;
     public int numBodies = 3;
 
-    private Dictionary<int, GameObject> bodies = new Dictionary<int, GameObject>();
+    public List<Vector2> initialPos;
 
-    void Start()
+    private List<GameObject> bodies;
+
+    private void Start()
     {
-        bodies = PVC.spawnBodies(numBodies, initialPositions);
-        updatePositions(bodies, initialVelocities);
-   
+        bodies = PVC.spawnBodies(numBodies, initialPos);
+        Debug.Log("AYO");
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        List<Vector2> positions = getPositions(bodies);
-        List<Vector3> velocities = PVC.calculateVel(positions);
-        updatePositions(bodies, velocities);
-    }
-
-    private List<Vector2> getPositions(Dictionary<int, GameObject> bodys)
-    {
-        List<Vector2> positions = new List<Vector2>();
-
-        foreach (KeyValuePair<int, GameObject> body in bodys)
+        foreach (GameObject bod in bodies)
         {
-            Vector2 pos = new Vector2(body.Value.transform.position.x, body.Value.transform.position.y);
-            positions.Add(pos);
+            body BS = bod.GetComponent<body>();
+            BS.updateVelocity(bodies);
         }
 
-        return positions;
-    }
-
-    private void updatePositions(Dictionary<int, GameObject> bodys, List<Vector3> vels)
-    {
-        foreach (KeyValuePair<int, GameObject> body in bodys)
+        foreach (GameObject bod in bodies)
         {
-            body.Value.transform.position += vels[body.Key] * Time.deltaTime;
+            body BS = bod.GetComponent<body>();
+            BS.updatePosition();
         }
     }
+
+    //public List<Vector2> initialPositions;
+    //public List<Vector2> initialVelocities;
+    //public int numBodies = 3;
+    //public float G = 1.0f;
+
+    //private Dictionary<int, GameObject> bodies = new Dictionary<int, GameObject>();
+
+    //void Start()
+    //{
+    //    bodies = PVC.spawnBodies(numBodies, initialPositions);
+    //    updatePositions(bodies, initialVelocities);
+
+    //}
+
+    //void FixedUpdate()
+    //{
+    //    //List<Vector2> positions = getPositions(bodies);
+    //    //List<Vector2> velocities = PVC.calculateAcc(positions);
+    //    //updatePositions(bodies, velocities);
+    //}
+
+    //private List<Vector2> getPositions(Dictionary<int, GameObject> bodys)
+    //{
+    //    List<Vector2> positions = new List<Vector2>();
+
+    //    foreach (KeyValuePair<int, GameObject> body in bodys)
+    //    {
+    //        Vector2 pos = new Vector2(body.Value.transform.position.x, body.Value.transform.position.y);
+    //        positions.Add(pos);
+    //    }
+
+    //    return positions;
+    //}
+
+    //private void updatePositions(Dictionary<int, GameObject> bodys, List<Vector2> vels)
+    //{
+    //    foreach (KeyValuePair<int, GameObject> body in bodys)
+    //    {
+    //        body.Value.transform.position += new Vector3(vels[body.Key].x, vels[body.Key].y, 0) * Time.deltaTime;
+    //    }
+    //}
 }
