@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < forces.Count; i++)
         {
             Vector2 vel = velocity[i];
-            position[i] += vel * Time.deltaTime*dt;
+            position[i] += vel * dt * Time.deltaTime; 
         }
 
         // Step 3:
@@ -50,7 +50,7 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < forces.Count; i++)
         {
             Vector2 force = forces[i];
-            velocity[i] += force / masses[i] * (Time.deltaTime*dt / 2);
+            velocity[i] += force / masses[i] * (Time.deltaTime * dt / 2);
         }
 
         for (int i = 0; i < forces.Count; i++)
