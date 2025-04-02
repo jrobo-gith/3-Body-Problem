@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Manager : MonoBehaviour
 {
 
     public GameObject body;
+    bodyScript bs;
 
     public List<Vector2> initialPos;
     public List<Vector2> initialVel;
@@ -20,6 +22,8 @@ public class Manager : MonoBehaviour
 
     public int numBodies = 3;
 
+    private float adjustMass = 1.0f;
+
     private void Start()
     {
         bodies = spawnBodies(numBodies, initialPos);
@@ -27,6 +31,15 @@ public class Manager : MonoBehaviour
         position = initialPos;
 
         forces = gravity(bodies);
+
+        // Adjust masses if you want
+        for (int i=0; i < masses.Count; i++)
+        {
+            Vector2 mass = masses[i];
+            mass = mass * new Vector2(adjustMass, adjustMass);
+            masses[i] = mass;
+        }
+
     }
 
     private void Update()
@@ -70,9 +83,10 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < numBodies; i++)
         {
             GameObject B = Instantiate(body, initPositions[i], Quaternion.identity);
-            B.GetComponent<SpriteRenderer>().color = Color.blue;
-            B.transform.localScale = new Vector3(0.3f, 0.3f, 0);
-
+            B.GetComponent<SpriteRenderer>().color = new Color(Random.Range(.3F, 1F), Random.Range(.3F, 1F), Random.Range(.3F, 1F));
+            float radius = masses[i].x + 0.1f;
+            B.transform.localScale = new Vector3(radius, radius, 0);
+            //B.AddComponent<bodyScript>();
             bodies.Add(B);
         }
 
