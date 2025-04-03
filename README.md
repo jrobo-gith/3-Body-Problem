@@ -74,6 +74,7 @@ Masses:
 \end{bmatrix}
 ```
 <br>
+
 ![figure_8](Images/figure_8.png)
 
 
