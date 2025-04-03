@@ -1,2 +1,5 @@
 # 3-Body-Problem
-Models the three body problem
+
+
+![sun_earth_moon](images/sun_earth_moon.png)
+
