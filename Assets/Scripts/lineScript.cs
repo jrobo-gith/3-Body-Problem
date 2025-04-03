@@ -3,7 +3,7 @@ using UnityEngine;
 public class lineScript : MonoBehaviour
 {
     SpriteRenderer spriteRend;
-    private float delay = 10.0f;
+    private float delay = 20.0f;
     private float timer = 0f;
 
     void Start()

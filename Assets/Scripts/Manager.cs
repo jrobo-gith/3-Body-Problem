@@ -84,9 +84,8 @@ public class Manager : MonoBehaviour
         {
             GameObject B = Instantiate(body, initPositions[i], Quaternion.identity);
             B.GetComponent<SpriteRenderer>().color = new Color(Random.Range(.3F, 1F), Random.Range(.3F, 1F), Random.Range(.3F, 1F));
-            float radius = masses[i].x + 0.1f;
+            float radius = masses[i].x - 0.7f;
             B.transform.localScale = new Vector3(radius, radius, 0);
-            //B.AddComponent<bodyScript>();
             bodies.Add(B);
         }
 
